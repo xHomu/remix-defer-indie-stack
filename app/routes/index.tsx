@@ -132,6 +132,7 @@ export default function Index() {
             ))}
           </div>
         </div>
+        <Link to="defer">Defer Test</Link>
       </div>
     </main>
   );
