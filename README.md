@@ -2,7 +2,7 @@ This is a bug repo to show that defer doesn't work with Prisma queries currently
 
 You'll probably need to run `npx remix init` `npm run setup` `npm run dev` first, then go to `localhost:3000`.
 
-### [Bug Demo](index.tsx)
+[Bug Demo Link](app/routes/index.tsx)
 
 ---
 
