@@ -1,3 +1,11 @@
+This is a bug repo to show that defer doesn't work with Prisma queries currently.
+
+You'll probably need to run `npx remix init` `npm run setup` `npm run dev` first, then go to `localhost:3000`.
+
+### [Bug Demo](index.tsx)
+
+---
+
 # Remix Indie Stack
 
 ![The Remix Indie Stack](https://repository-images.githubusercontent.com/465928257/a241fa49-bd4d-485a-a2a5-5cb8e4ee0abf)

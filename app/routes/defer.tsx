@@ -1,6 +1,7 @@
 import { Await, useLoaderData } from "@remix-run/react";
 import { Suspense } from "react";
 import { defer } from "@remix-run/node";
+import { getNoteTitle } from "~/models/note.server";
 
 function getCritical(): Promise<{ message: string }> {
   return new Promise((r) =>
@@ -16,20 +17,29 @@ function getLazy(): Promise<{ message: string }> {
 export const loader = async () => {
   const critical = await getCritical();
   const lazy = getLazy();
+  const note = await getNoteTitle({ title: "My first note" });
   return defer({
     critical,
     lazy,
+    note,
+    lazynote: getNoteTitle({ title: "My first note" }),
   });
 };
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>();
+  const { critical, lazy, note, lazynote } = useLoaderData<typeof loader>();
   return (
     <div>
-      <section>Critical Data: {JSON.stringify(data.critical)}</section>
+      <section>Critical Data: {critical.message}</section>
       <Suspense fallback={<section>Lazy Data: Loading....</section>}>
-        <Await resolve={data.lazy} errorElement={<div>Loading...</div>}>
-          {(value) => <section>Lazy Data: {JSON.stringify(value)}</section>}
+        <Await resolve={lazy} errorElement={<div>Loading...</div>}>
+          {(lazy) => <section>Lazy Data: {lazy.message}</section>}
+        </Await>
+      </Suspense>
+      <section>Note: {JSON.stringify(note)}</section>
+      <Suspense fallback={<section>Lazy Data: Loading....</section>}>
+        <Await resolve={lazynote} errorElement={<div>Loading...</div>}>
+          {(lazy) => <section>Lazy Note: {JSON.stringify(lazynote)}</section>}
         </Await>
       </Suspense>
     </div>

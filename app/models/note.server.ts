@@ -16,6 +16,17 @@ export function getNote({
   });
 }
 
+
+
+export function getNoteTitle({
+  title
+}: Pick<Note, "title">) {
+  return prisma.note.findFirst({
+    select: { id: true, body: true, title: true },
+    where: { title },
+  });
+}
+
 export function getNoteListItems({ userId }: { userId: User["id"] }) {
   return prisma.note.findMany({
     where: { userId },
